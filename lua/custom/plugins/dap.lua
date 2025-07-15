@@ -1,7 +1,7 @@
 return {
     {
         'mfussenegger/nvim-dap',
-        keys = {
+        keys = { -- TODO: Change keybinds
             {
                 '<F5>',
                 function()
@@ -45,10 +45,30 @@ return {
             "mfussenegger/nvim-dap",
             "nvim-neotest/nvim-nio",
         },
-        config = function()
+        opts = {
+            layouts = {
+                {
+                    elements = {
+                        { id = "watches", size = 0.20 },
+                        { id = "scopes", size = 0.50 },
+                        { id = "stacks", size = 0.30 },
+                    },
+                    position = "right",
+                    size = 60,
+                },
+                {
+                    elements = {
+                        { id = "repl" },
+                    },
+                    position = "bottom",
+                    size = 15,
+                },
+            },
+        },
+        config = function(_, opts)
             local dap = require('dap')
             local dapui = require('dapui')
-            dapui.setup()
+            dapui.setup(opts)
 
             dap.listeners.after.event_initialized.dapui_config = dapui.open
             dap.listeners.before.event_terminated.dapui_config = dapui.close
