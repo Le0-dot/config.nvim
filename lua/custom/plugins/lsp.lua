@@ -26,10 +26,10 @@ local servers = {
             },
         },
     },
-    clangd = {},
-    hls = {
-        filetypes = { 'haskell', 'lhaskell', 'cabal' },
-    },
+    -- clangd = {},
+    -- hls = {
+    --     filetypes = { 'haskell', 'lhaskell', 'cabal' },
+    -- },
     basedpyright = {},
     robotframework_ls = {},
 }
@@ -45,14 +45,16 @@ return {
             'j-hui/fidget.nvim',
         },
         config = function()
-            local on_attach = function(client, bufnr)
-                local bufopts = { noremap = true, silent = true, buffer = bufnr }
-                vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-                vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-                vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-                vim.keymap.set('n', '<leader>fo', function() vim.lsp.buf.format { async = true } end, bufopts)
-                vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, bufopts)
-            end
+            vim.api.nvim_create_autocmd('LspAttach', {
+                group = vim.api.nvim_create_augroup('custom-lsp-attach', { clear = false }),
+                callback = function(event)
+                    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+                    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+                    vim.keymap.set('n', 'grf', function() vim.lsp.buf.format { async = true } end, bufopts)
+                end
+            })
+
+            -- TODO: https://github.com/nvim-lua/kickstart.nvim/blob/3338d3920620861f8313a2745fd5d2be39f39534/init.lua#L594
 
             Capabilities = vim.tbl_deep_extend('force',
                 vim.lsp.protocol.make_client_capabilities(),
@@ -63,7 +65,6 @@ return {
             lspconfig.util.default_config = vim.tbl_deep_extend('force',
                 lspconfig.util.default_config,
                 {
-                    on_attach = on_attach,
                     capabilities = capabilities,
                 }
             )

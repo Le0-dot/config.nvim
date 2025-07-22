@@ -1,3 +1,6 @@
+-- TODO: `zz` after CursorMove event
+-- TODO: Ctrl-O `zz` after CursorMoveI event
+
 -- Map leader
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
