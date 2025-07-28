@@ -31,7 +31,9 @@ local servers = {
     --     filetypes = { 'haskell', 'lhaskell', 'cabal' },
     -- },
     basedpyright = {},
-    robotframework_ls = {},
+    robotcode = {
+        filetypes = { 'robot' },
+    },
 }
 
 return {
