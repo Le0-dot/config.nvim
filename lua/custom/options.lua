@@ -87,7 +87,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 -- Remove trailing spaces and trailing empty lines
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    pattern = { "*" },
     callback = function()
         local save_cursor = vim.fn.getpos(".")
         pcall(function() vim.cmd [[%s/\s\+$//e]] end)   -- Delete trailing white spaces
@@ -98,7 +97,6 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 
 -- Center buffer after move
 vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-    pattern = { "*" },
     callback = function() vim.cmd("normal! zz") end,
 })
 
@@ -118,9 +116,6 @@ vim.keymap.set('n', '<leader>x', ':.lua<cr>', { desc = 'Execute current lua line
 vim.keymap.set('v', '<leader>x', ':lua<cr>', { desc = 'Execute selected lua lines' })
 
 vim.keymap.set('n', '<C-q>', '<C-w><C-q>', { desc = 'Close focused window' })
-
--- vim.keymap.set('n', '<C-D>', '<C-D>zz', { desc = 'Scroll down and center' })
--- vim.keymap.set('n', '<C-U>', '<C-U>zz', { desc = 'Scroll up and center' })
 
 vim.keymap.set({ 'n', 'x' }, '<leader>d', '"_d', { desc = 'Delete without overriding current registers' })
 vim.keymap.set('n', '<leader>D', '"_D', { desc = 'Delete without overriding current registers' })
