@@ -1,6 +1,3 @@
--- TODO: `zz` after CursorMove event
--- TODO: Ctrl-O `zz` after CursorMoveI event
-
 -- Map leader
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -13,7 +10,6 @@ vim.opt.signcolumn = 'yes'
 
 
 -- System clipboard interactions
--- vim.opt.clipboard = 'unnamedplus' -- sync with system clipboard
 vim.keymap.set({ 'n', 'x' }, 'gy', '"+y', { desc = 'Copy to system clipboard' })
 vim.keymap.set('n', 'gp', '"+p', { desc = 'Paste from system clipboard' })
 vim.keymap.set('n', 'gP', '"+P', { desc = 'Paste from system clipboard' })
@@ -76,16 +72,30 @@ vim.opt.inccommand = 'split' -- Show preview in a split
 -- Diagnostics
 vim.diagnostic.config({ virtual_lines = { current_line = true } })
 
+-- Border
+vim.o.winborder = 'rounded'
+
+-- Spellcheck
+vim.o.spell = true
+
+-- Swap files
+vim.o.swapfile = false
 
 -- Remove trailing spaces and trailing empty lines
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     pattern = { "*" },
     callback = function()
         local save_cursor = vim.fn.getpos(".")
-        pcall(function() vim.cmd [[%s/\s\+$//e]] end)   -- Delete trailing whitespaces
+        pcall(function() vim.cmd [[%s/\s\+$//e]] end)   -- Delete trailing white spaces
         pcall(function() vim.cmd [[%s/\n\+\%$//e]] end) -- Delete trailing empty lines
         vim.fn.setpos(".", save_cursor)
     end,
+})
+
+-- Center buffer after move
+vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+    pattern = { "*" },
+    callback = function() vim.cmd("normal! zz") end,
 })
 
 
@@ -105,11 +115,8 @@ vim.keymap.set('v', '<leader>x', ':lua<cr>', { desc = 'Execute selected lua line
 
 vim.keymap.set('n', '<C-q>', '<C-w><C-q>', { desc = 'Close focused window' })
 
-vim.keymap.set('n', 'd]<space>', 'j"_ddk', { desc = 'Delete line below' })
-vim.keymap.set('n', 'd[<space>', 'k"_dd', { desc = 'Delete line above' })
-
-vim.keymap.set('n', '<C-D>', '<C-D>zz', { desc = 'Scroll down and center' })
-vim.keymap.set('n', '<C-U>', '<C-U>zz', { desc = 'Scroll up and center' })
+-- vim.keymap.set('n', '<C-D>', '<C-D>zz', { desc = 'Scroll down and center' })
+-- vim.keymap.set('n', '<C-U>', '<C-U>zz', { desc = 'Scroll up and center' })
 
 vim.keymap.set({ 'n', 'x' }, '<leader>d', '"_d', { desc = 'Delete without overriding current registers' })
 vim.keymap.set('n', '<leader>D', '"_D', { desc = 'Delete without overriding current registers' })
@@ -124,8 +131,6 @@ vim.keymap.set('n', 'gcA', function()
     vim.cmd [[ startinsert! ]]
 end, { desc = 'Append comment to the line' })
 
-
-vim.keymap.set({ 'n', 'v' }, 'gg', function() print("use go") end)
 
 function Dump(o)
     if type(o) == 'table' then
