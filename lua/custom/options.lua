@@ -35,12 +35,6 @@ vim.opt.smartindent = true
 vim.opt.autoindent = true
 
 
--- Line breaks
-vim.opt.linebreak = true
-vim.opt.showbreak = '+++'
-vim.opt.breakindent = true
-
-
 -- Timing
 vim.opt.updatetime = 250 -- Timeout for plugin start
 vim.opt.timeoutlen = 500 -- Mapping timeout
