@@ -60,6 +60,7 @@ vim.opt.scrolloff = 10
 vim.opt.undofile = true
 vim.opt.backup = false
 vim.opt.writebackup = false
+vim.o.swapfile = false
 
 
 -- Misc
@@ -75,8 +76,6 @@ vim.diagnostic.config({ virtual_lines = { current_line = true } })
 -- Border
 vim.o.winborder = 'rounded'
 
--- Swap files
-vim.o.swapfile = false
 
 -- Spellcheck
 vim.api.nvim_create_autocmd({ "FileType" }, {
