@@ -75,11 +75,16 @@ vim.diagnostic.config({ virtual_lines = { current_line = true } })
 -- Border
 vim.o.winborder = 'rounded'
 
--- Spellcheck
-vim.o.spell = true
-
 -- Swap files
 vim.o.swapfile = false
+
+-- Spellcheck
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    pattern = { "text", "gitcommit", "markdown" },
+    callback = function ()
+        vim.opt_local.spell = true
+    end
+})
 
 -- Remove trailing spaces and trailing empty lines
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
