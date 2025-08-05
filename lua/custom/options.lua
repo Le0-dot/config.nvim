@@ -117,14 +117,6 @@ vim.keymap.set('x', '<leader>p', '"_dP"', { desc = 'Paste without copying' })
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Stop highlighting the search results' })
 
-vim.keymap.set('n', 'gcA', function()
-    local comment_start = string.format(vim.bo.commentstring, '')
-    local new_line = vim.fn.getline('.') .. ' ' .. comment_start
-    vim.fn.setline('.', new_line) ---@diagnostic disable-line: param-type-mismatch
-    vim.cmd [[ startinsert! ]]
-end, { desc = 'Append comment to the line' })
-
-
 function Dump(o)
     if type(o) == 'table' then
         local s = '{ '
