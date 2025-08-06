@@ -24,7 +24,7 @@ vim.opt.incsearch = true
 vim.opt.hlsearch = true
 
 
--- Indenting TODO
+-- Indenting
 vim.opt.expandtab = true -- Tabs with spaces
 vim.opt.tabstop = 4      -- Width of tab character
 vim.opt.shiftwidth = 0   -- Width of tabs for > and < (0 to use tabstop value)
@@ -61,7 +61,7 @@ vim.o.swapfile = false
 vim.opt.showmode = false -- Show Insert, Visial or Replace mode
 vim.opt.showmatch = true
 vim.opt.formatoptions:remove('o')
-vim.opt.inccommand = 'split' -- Show preview in a split
+vim.opt.inccommand = 'split'  -- Show preview in a split
 vim.opt.shortmess:append('S') -- Don't show search count in right corner
 
 -- Diagnostics
