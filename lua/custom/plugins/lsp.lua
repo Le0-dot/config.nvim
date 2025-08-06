@@ -40,10 +40,6 @@ return {
     {
         'neovim/nvim-lspconfig',
         dependencies = {
-            {
-                'hrsh7th/cmp-nvim-lsp',
-                dependecies = { 'hrsh7th/nvim-cmp', },
-            },
             'j-hui/fidget.nvim',
         },
         config = function()
@@ -58,17 +54,11 @@ return {
 
             -- TODO: https://github.com/nvim-lua/kickstart.nvim/blob/3338d3920620861f8313a2745fd5d2be39f39534/init.lua#L594
 
-            Capabilities = vim.tbl_deep_extend('force',
-                vim.lsp.protocol.make_client_capabilities(),
-                require('cmp_nvim_lsp').default_capabilities()
-            )
-
             local lspconfig = require('lspconfig')
+            local capabilities = require('blink.cmp').get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
             lspconfig.util.default_config = vim.tbl_deep_extend('force',
                 lspconfig.util.default_config,
-                {
-                    capabilities = capabilities,
-                }
+                { capabilities = capabilities, }
             )
         end,
     },
