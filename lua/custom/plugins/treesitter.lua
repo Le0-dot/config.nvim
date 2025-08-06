@@ -5,9 +5,7 @@ return {
     },
     build = ':TSUpdate',
     opts = {
-        ensure_installed = { "lua", "python", "robot" },
         auto_install = true,
-
         highlight = { enable = true },
         indent = { enable = true },
     }
