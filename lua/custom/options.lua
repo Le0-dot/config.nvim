@@ -62,7 +62,7 @@ vim.opt.showmode = false -- Show Insert, Visial or Replace mode
 vim.opt.showmatch = true
 vim.opt.formatoptions:remove('o')
 vim.opt.inccommand = 'split' -- Show preview in a split
-
+vim.opt.shortmess:append('S') -- Don't show search count in right corner
 
 -- Diagnostics
 vim.diagnostic.config({ virtual_lines = { current_line = true } })
@@ -74,7 +74,7 @@ vim.o.winborder = 'rounded'
 -- Spellcheck
 vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = { "text", "gitcommit", "markdown" },
-    callback = function ()
+    callback = function()
         vim.opt_local.spell = true
     end
 })
@@ -106,6 +106,8 @@ vim.keymap.set('n', '<leader>D', '"_D', { desc = 'Delete without overriding curr
 vim.keymap.set('x', '<leader>p', '"_dP"', { desc = 'Paste without copying' })
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Stop highlighting the search results' })
+
+vim.keymap.set('n', 'gyf', ':let @+ = expand("%:~:.")<CR>', { desc = 'Copy relative file path to system clipboard' })
 
 function Dump(o)
     if type(o) == 'table' then
