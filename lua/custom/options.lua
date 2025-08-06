@@ -95,16 +95,6 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
 })
 
 
--- Command to start with in sessions like tmux or zellij
-vim.api.nvim_create_user_command("WithSession", function()
-    if next(MiniSessions.detected) == nil then
-        MiniSessions.write(MiniSessions.config.file)
-    else
-        MiniSessions.read()
-    end
-end, {})
-
-
 -- Some custom general keymaps
 vim.keymap.set('n', '<leader>x', ':.lua<cr>', { desc = 'Execute current lua line' })
 vim.keymap.set('v', '<leader>x', ':lua<cr>', { desc = 'Execute selected lua lines' })
