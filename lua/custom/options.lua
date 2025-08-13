@@ -64,20 +64,6 @@ vim.diagnostic.config({ virtual_lines = { current_line = true } })
 vim.o.winborder = 'rounded'
 
 
--- Remove trailing spaces and trailing empty lines
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    callback = function()
-        local save_cursor = vim.fn.getpos(".")
-        pcall(function() vim.cmd [[%s/\s\+$//e]] end)   -- Delete trailing white spaces
-        pcall(function() vim.cmd [[%s/\n\+\%$//e]] end) -- Delete trailing empty lines
-        vim.fn.setpos(".", save_cursor)
-    end,
-})
-
--- Center buffer after move
-vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-    callback = function() vim.cmd("normal! zz") end,
-})
 -- System clipboard interactions
 vim.keymap.set({ 'n', 'x' }, 'gy', '"+y', { desc = 'Copy to system clipboard' })
 vim.keymap.set('n', 'gp', '"+p', { desc = 'Paste from system clipboard' })
@@ -129,6 +115,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
         vim.highlight.on_yank({ higroup = 'DiffText', timeout = 500 })
     end,
 })
+
+-- Center buffer after move
+vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+    callback = function() vim.cmd("normal! zz") end,
+})
+
 
 function Dump(o)
     if type(o) == 'table' then
