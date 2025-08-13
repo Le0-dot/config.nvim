@@ -9,13 +9,6 @@ vim.opt.relativenumber = true
 vim.opt.signcolumn = 'yes'
 
 
--- System clipboard interactions
-vim.keymap.set({ 'n', 'x' }, 'gy', '"+y', { desc = 'Copy to system clipboard' })
-vim.keymap.set('n', 'gp', '"+p', { desc = 'Paste from system clipboard' })
-vim.keymap.set('n', 'gP', '"+P', { desc = 'Paste from system clipboard' })
-vim.keymap.set('v', 'gp', '"+P', { desc = 'Paste from system clipboard in visual mode without copying' })
-
-
 -- Search
 vim.opt.ignorecase = true
 vim.opt.infercase = true
@@ -85,6 +78,11 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 vim.api.nvim_create_autocmd({ "CursorMoved" }, {
     callback = function() vim.cmd("normal! zz") end,
 })
+-- System clipboard interactions
+vim.keymap.set({ 'n', 'x' }, 'gy', '"+y', { desc = 'Copy to system clipboard' })
+vim.keymap.set('n', 'gp', '"+p', { desc = 'Paste from system clipboard' })
+vim.keymap.set('n', 'gP', '"+P', { desc = 'Paste from system clipboard' })
+vim.keymap.set('v', 'gp', '"+P', { desc = 'Paste from system clipboard in visual mode' })
 
 
 -- Some custom general keymaps
@@ -99,7 +97,19 @@ vim.keymap.set('x', '<leader>p', '"_dP"', { desc = 'Paste without copying' })
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Stop highlighting the search results' })
 
-vim.keymap.set('n', 'gyf', ':let @+ = expand("%:~:.")<CR>', { desc = 'Copy relative file path to system clipboard' })
+vim.keymap.set(
+    'n',
+    'gyf',
+    function() vim.fn.setreg("+", vim.fn.expand("%:~:.")) end,
+    { desc = 'Copy relative file path to system clipboard' }
+)
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+    desc = 'Hightlight selection on yank',
+    callback = function()
+        vim.highlight.on_yank({ higroup = 'DiffText', timeout = 500 })
+    end,
+})
 
 function Dump(o)
     if type(o) == 'table' then
