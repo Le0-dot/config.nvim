@@ -50,8 +50,8 @@ return {
                 {
                     elements = {
                         { id = "watches", size = 0.20 },
-                        { id = "scopes", size = 0.50 },
-                        { id = "stacks", size = 0.30 },
+                        { id = "scopes",  size = 0.50 },
+                        { id = "stacks",  size = 0.30 },
                     },
                     position = "right",
                     size = 60,
@@ -77,20 +77,6 @@ return {
             vim.api.nvim_set_hl(0, 'DapBreak', { fg = '#e51400' })
             vim.fn.sign_define("DapBreakpoint", { text = '', texthl = 'DapBreak' })
         end,
-    },
-    {
-        'jay-babu/mason-nvim-dap.nvim',
-        dependencies = {
-            'mason-org/mason.nvim',
-            'mfussenegger/nvim-dap',
-        },
-        opts = {
-            automatic_installation = false,
-            handlers = {},
-            ensure_installed = {
-                "debugpy",
-            },
-        },
     },
     {
         'mfussenegger/nvim-dap-python',
