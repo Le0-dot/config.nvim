@@ -113,3 +113,20 @@ function Dump(o)
         return tostring(o)
     end
 end
+
+-- TODO: Auto enable all configured lsp
+vim.lsp.enable('lua-language-server')
+vim.lsp.enable('ruff')
+vim.lsp.enable('basedpyright')
+vim.lsp.enable('robotcode')
+vim.lsp.enable('nil')
+vim.lsp.enable('hls')
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function()
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration)
+        -- TODO: Auto format
+        vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format({ async = true }) end)
+    end
+})
