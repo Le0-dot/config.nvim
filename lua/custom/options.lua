@@ -72,9 +72,6 @@ vim.keymap.set('v', 'gp', '"+P', { desc = 'Paste from system clipboard in visual
 
 
 -- Some custom general keymaps
-vim.keymap.set('n', '<leader>x', ':.lua<cr>', { desc = 'Execute current lua line' })
-vim.keymap.set('v', '<leader>x', ':lua<cr>', { desc = 'Execute selected lua lines' })
-
 vim.keymap.set('n', '<C-q>', '<C-w><C-q>', { desc = 'Close focused window' })
 
 vim.keymap.set({ 'n', 'x' }, '<leader>d', '"_d', { desc = 'Delete without overriding current registers' })
