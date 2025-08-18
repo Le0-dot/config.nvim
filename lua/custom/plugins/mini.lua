@@ -16,12 +16,13 @@ return {
         end, {})
 
         local ai = require('mini.ai')
-        ai.setup {
+        ai.setup({
             custom_textobjects = {
                 F = ai.gen_spec.treesitter { a = '@function.outer', i = '@function.inner' },
                 c = ai.gen_spec.treesitter { a = '@conditional.outer', i = '@conditional.inner' },
+                B = ai.gen_spec.treesitter { a = '@block.outer', i = '@block.inner' },
             }
-        }
+        })
 
         local hipatterns = require('mini.hipatterns')
         hipatterns.setup({
