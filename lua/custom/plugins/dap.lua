@@ -90,7 +90,7 @@ return {
         keys = {
             {
                 '<leader>id',
-                'Oimport debugpy; debugpy.listen(5678); debugpy.wait_for_client()j',
+                'Oimport debugpy; debugpy.listen(5678); debugpy.wait_for_client()j:!uv pip install debugpy<CR>',
                 desc = 'Debug: Set Breakpoint',
             },
         },
