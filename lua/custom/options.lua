@@ -74,10 +74,6 @@ vim.keymap.set('v', 'gp', '"+P', { desc = 'Paste from system clipboard in visual
 -- Some custom general keymaps
 vim.keymap.set('n', '<C-q>', '<C-w><C-q>', { desc = 'Close focused window' })
 
-vim.keymap.set({ 'n', 'x' }, '<leader>d', '"_d', { desc = 'Delete without overriding current registers' })
-vim.keymap.set('n', '<leader>D', '"_D', { desc = 'Delete without overriding current registers' })
-vim.keymap.set('x', '<leader>p', '"_dP"', { desc = 'Paste without copying' })
-
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Stop highlighting the search results' })
 
 vim.keymap.set(
