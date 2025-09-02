@@ -57,11 +57,14 @@ vim.opt.formatoptions:remove('o')
 vim.opt.inccommand = 'split'  -- Show preview in a split
 vim.opt.shortmess:append('S') -- Don't show search count in right corner
 
+
 -- Diagnostics
-vim.diagnostic.config({ virtual_lines = { current_line = true } })
+vim.diagnostic.config({ virtual_lines = true })
+
 
 -- Border
 vim.o.winborder = 'rounded'
+
 
 -- Folds NOTE: Conflict with centering the cursor, no events for fold exist
 -- vim.o.foldmethod = 'expr'
@@ -124,8 +127,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     end,
 })
 
--- Center buffer after move
 vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+    desc = 'Center buffer after cursor is moved',
     callback = function() vim.cmd("normal! zz") end,
 })
 
