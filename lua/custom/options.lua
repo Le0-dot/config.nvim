@@ -59,8 +59,7 @@ vim.opt.shortmess:append('S') -- Don't show search count in right corner
 
 
 -- Diagnostics
-vim.diagnostic.config({ virtual_lines = true })
-
+vim.diagnostic.config({ virtual_lines = { current_line = true } })
 
 -- Border
 vim.o.winborder = 'rounded'
