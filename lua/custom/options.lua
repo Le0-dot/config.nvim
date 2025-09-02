@@ -66,12 +66,12 @@ vim.diagnostic.config({ virtual_lines = true })
 vim.o.winborder = 'rounded'
 
 
--- Folds NOTE: Conflict with centering the cursor, no events for fold exist
--- vim.o.foldmethod = 'expr'
--- vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
--- vim.o.foldnestmax = 1
--- vim.o.foldopen = 'all'
--- vim.o.foldclose = 'all'
+-- Folds
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.o.foldnestmax = 1
+vim.o.foldopen = 'all'
+vim.o.foldclose = 'all'
 
 
 -- System clipboard interactions
@@ -112,11 +112,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
                 end,
             })
         end
-
-        -- if client and client:supports_method('textDocument/foldingRange') then
-        --     vim.bo.foldexpr = 'v:lua.vim.lsp.foldexpr()'
-        --     vim.bo.foldtext = 'v:lua.vim.lsp.foldtext()'
-        -- end
     end
 })
 
