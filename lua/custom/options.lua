@@ -83,6 +83,12 @@ vim.keymap.set(
     function() vim.fn.setreg("+", vim.fn.expand("%:~:.")) end,
     { desc = 'Copy relative file path to system clipboard' }
 )
+vim.keymap.set(
+    'n',
+    'gyd',
+    function() vim.fn.setreg("+", vim.fn.expand("%:~:.:h")) end,
+    { desc = 'Copy relative file path to system clipboard' }
+)
 
 vim.lsp.enable(
     vim.iter(vim.api.nvim_get_runtime_file('lsp/*.lua', true))
