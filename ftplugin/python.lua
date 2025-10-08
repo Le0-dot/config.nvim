@@ -15,7 +15,7 @@ end
 vim.api.nvim_create_autocmd("User", {
     pattern = "DebugModeChanged",
     callback = function(args)
-        local lines = { '#fmt: off', 'import debugpy', 'debugpy.listen(5678)', 'debugpy.wait_for_client()', '#fmt: on' }
+        local lines = { '# fmt: off', 'import debugpy', 'debugpy.listen(5678)', 'debugpy.wait_for_client()', '# fmt: on' }
         buf_start_toggle(lines, args.data.enabled)
         vim.cmd([[ :write ]])
     end
