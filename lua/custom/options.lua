@@ -80,15 +80,22 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Stop highlighting 
 vim.keymap.set(
     'n',
     'gyf',
-    function() vim.fn.setreg("+", vim.fn.expand("%:~:.")) end,
+    function() vim.fn.setreg("+", vim.fn.expand("%:.")) end,
     { desc = 'Copy relative file path to system clipboard' }
 )
 vim.keymap.set(
     'n',
     'gyd',
-    function() vim.fn.setreg("+", vim.fn.expand("%:~:.:h")) end,
+    function() vim.fn.setreg("+", vim.fn.expand("%:.:h")) end,
     { desc = 'Copy relative file path to system clipboard' }
 )
+vim.keymap.set(
+    'n',
+    'ed',
+    function() vim.cmd([[e %:h]]) end,
+    { desc = 'Open current file directory' }
+)
+
 
 vim.lsp.enable(
     vim.iter(vim.api.nvim_get_runtime_file('lsp/*.lua', true))
