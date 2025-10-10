@@ -1,3 +1,7 @@
+local dap = require("dap")
+local port = 5678
+local host = "127.0.0.1"
+
 local function buf_start_toggle(lines, present)
     local buf = 0
     local len = #lines
@@ -15,8 +19,41 @@ end
 vim.api.nvim_create_autocmd("User", {
     pattern = "DebugModeChanged",
     callback = function(args)
-        local lines = { '# fmt: off', 'import debugpy', 'debugpy.listen(5678)', 'debugpy.wait_for_client()', '# fmt: on' }
+        local lines = {
+            '# fmt: off',
+            'import debugpy',
+            'debugpy.listen(' .. port .. ')',
+            'debugpy.wait_for_client()',
+            '# fmt: on',
+        }
         buf_start_toggle(lines, args.data.enabled)
         vim.cmd([[ :write ]])
     end
 })
+
+dap.adapters.python = function(callback, config)
+    local adapter
+    if config.request == 'attach' then
+        adapter = {
+            type = 'server',
+            port = config.connect.port,
+            host = config.connect.host,
+            options = {
+                source_filetype = 'python',
+            }
+        }
+    end
+    callback(adapter)
+end
+
+dap.configurations.python = {
+    {
+        type = 'python',
+        request = 'attach',
+        name = 'attach',
+        justMyCode = false,
+        connect = function()
+            return { host = host, port = port }
+        end,
+    }
+}
