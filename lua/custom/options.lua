@@ -91,9 +91,9 @@ vim.keymap.set(
 )
 vim.keymap.set(
     'n',
-    'ed',
+    '<leader>ed',
     function() vim.cmd([[e %:h]]) end,
-    { desc = 'Open current file directory' }
+    { desc = 'Edit directory of currently opened file' }
 )
 
 
