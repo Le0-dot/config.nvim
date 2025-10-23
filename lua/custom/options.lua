@@ -96,6 +96,7 @@ vim.keymap.set(
     { desc = 'Edit directory of currently opened file' }
 )
 
+require('custom.term')
 
 vim.lsp.enable(
     vim.iter(vim.api.nvim_get_runtime_file('lsp/*.lua', true))
