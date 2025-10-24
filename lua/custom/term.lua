@@ -25,10 +25,19 @@ end
 
 -- Enter TERMINAL mode on entering term window
 vim.api.nvim_create_autocmd('TermOpen', { command = 'startinsert' })
-vim.api.nvim_create_autocmd('WinEnter', {
+vim.api.nvim_create_autocmd('BufEnter', {
+    pattern = 'term://*',
+    command = 'startinsert',
+})
+
+vim.api.nvim_create_autocmd('TermOpen', {
+    pattern = 'term://*lazygit',
     callback = function(args)
-        if vim.startswith(args.file, "term://") then
-            vim.cmd([[startinsert]])
-        end
-    end
+        vim.keymap.set('t', '<C-[>', 'q', { buffer = args.buf, desc = 'Quit lazygit with Esc sequence' })
+        vim.keymap.set('t', '<Esc>', 'q', { buffer = args.buf, desc = 'Quit lazygit with Esc' })
+    end,
+})
+vim.api.nvim_create_autocmd('TermClose', {
+    pattern = 'term://*lazygit',
+    callback = function(_) vim.api.nvim_input('<CR>') end
 })
