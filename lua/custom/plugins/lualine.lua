@@ -43,6 +43,9 @@ return {
                 lualine_y = { 'diagnostics', 'lsp_status' },
                 lualine_z = { 'searchcount', location_with_char_count }
             },
+            tabline = {
+                lualine_a = { { 'tabs', mode = 2, path = 4 }, },
+            },
         })
     end
 }
