@@ -1,11 +1,18 @@
 local function location_with_char_count()
-    local line = vim.fn.line(".")
-    local col = vim.fn.charcol(".")
+    local mode = vim.fn.mode()
 
-    if vim.fn.mode():find("[vV]") then
-        return string.format("%d:%d:%d", line, col, vim.fn.wordcount().visual_chars)
+    if mode == 'v' then
+        return string.format("%d", vim.fn.wordcount().visual_chars)
+    elseif mode == 'V' then
+        local cursor = vim.fn.getpos(".")
+        local other = vim.fn.getpos("v")
+        return string.format("%d", vim.fn.abs(cursor[2] - other[2]) + 1)
+    elseif mode == '' then
+        local cursor = vim.fn.getpos(".")
+        local other = vim.fn.getpos("v")
+        return string.format("%d:%d", vim.fn.abs(cursor[2] - other[2]) + 1, vim.fn.abs(cursor[3] - other[3]) + 1)
     else
-        return string.format("%d:%d", line, col)
+        return string.format("%d:%d", vim.fn.line('.'), vim.fn.charcol('.'))
     end
 end
 
