@@ -9,6 +9,12 @@ local function location_with_char_count()
     end
 end
 
+local function dir_name()
+    local cwd = vim.fn.getcwd()
+    local dir = vim.fn.fnamemodify(cwd, ":t")
+    return dir
+end
+
 return {
     'nvim-lualine/lualine.nvim',
     dependencies = {
@@ -45,6 +51,7 @@ return {
             },
             tabline = {
                 lualine_a = { { 'tabs', mode = 2, path = 4 }, },
+                lualine_z = { dir_name },
             },
         })
     end
