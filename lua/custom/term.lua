@@ -1,11 +1,3 @@
--- Make Ctrl + [ and Esc work in term window
-vim.keymap.set(
-    't', '<C-[>', '<C-\\><C-n>', { desc = 'Open new tab with terminal' }
-)
-vim.keymap.set(
-    't', '<Esc>', '<C-\\><C-n>', { desc = 'Open new tab with terminal' }
-)
-
 -- Common application shortcuts
 vim.keymap.set(
     { 'n', 'i', 't' }, '<M-t>', function() vim.cmd([[$tab term]]) end, { desc = 'Open new terminal tab with shell' }
@@ -24,21 +16,24 @@ for i = 1, 9 do
     )
 end
 
+-- Make Ctrl + [ and Esc work in term window
+vim.api.nvim_create_autocmd('TermOpen', {
+    pattern = 'term://*sh',
+    callback = function(args)
+        vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { buffer = args.buf })
+        vim.keymap.set('t', '<C-[>', '<C-\\><C-n>', { buffer = args.buf })
+    end
+})
+
 -- Enter TERMINAL mode on entering term window
 vim.api.nvim_create_autocmd('TermOpen', { command = 'startinsert' })
 vim.api.nvim_create_autocmd('BufEnter', {
     pattern = 'term://*',
     command = 'startinsert',
 })
+
+-- Skip the exit code
 vim.api.nvim_create_autocmd('TermClose', {
     pattern = 'term://*',
     callback = function(_) vim.api.nvim_input('<CR>') end
-})
-
-vim.api.nvim_create_autocmd('TermOpen', {
-    pattern = 'term://*lazygit',
-    callback = function(args)
-        vim.keymap.set('t', '<C-[>', 'q', { buffer = args.buf, desc = 'Quit lazygit with Esc sequence' })
-        vim.keymap.set('t', '<Esc>', 'q', { buffer = args.buf, desc = 'Quit lazygit with Esc' })
-    end,
 })
