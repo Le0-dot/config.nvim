@@ -12,7 +12,7 @@ vim.keymap.set(
 )
 
 vim.keymap.set(
-    { 'n', 'i', 't' }, '<M-g>', function() vim.cmd([[tab term lazygit]]) end, { desc = 'Open new tab with terminal' }
+    { 'n', 'i', 't' }, '<M-g>', function() vim.cmd([[$tab term lazygit]]) end, { desc = 'Open new tab with terminal' }
 )
 
 -- Bind Alt + n to switch tabs
@@ -29,6 +29,10 @@ vim.api.nvim_create_autocmd('BufEnter', {
     pattern = 'term://*',
     command = 'startinsert',
 })
+vim.api.nvim_create_autocmd('TermClose', {
+    pattern = 'term://*',
+    callback = function(_) vim.api.nvim_input('<CR>') end
+})
 
 vim.api.nvim_create_autocmd('TermOpen', {
     pattern = 'term://*lazygit',
@@ -36,8 +40,4 @@ vim.api.nvim_create_autocmd('TermOpen', {
         vim.keymap.set('t', '<C-[>', 'q', { buffer = args.buf, desc = 'Quit lazygit with Esc sequence' })
         vim.keymap.set('t', '<Esc>', 'q', { buffer = args.buf, desc = 'Quit lazygit with Esc' })
     end,
-})
-vim.api.nvim_create_autocmd('TermClose', {
-    pattern = 'term://*lazygit',
-    callback = function(_) vim.api.nvim_input('<CR>') end
 })
