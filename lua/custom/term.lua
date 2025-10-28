@@ -8,11 +8,12 @@ vim.keymap.set(
 
 -- Common application shortcuts
 vim.keymap.set(
-    { 'n', 'i', 't' }, '<M-t>', function() vim.cmd([[$tab term]]) end, { desc = 'Open new tab with terminal' }
+    { 'n', 'i', 't' }, '<M-t>', function() vim.cmd([[$tab term]]) end, { desc = 'Open new terminal tab with shell' }
 )
 
 vim.keymap.set(
-    { 'n', 'i', 't' }, '<M-g>', function() vim.cmd([[$tab term lazygit]]) end, { desc = 'Open new tab with terminal' }
+    { 'n', 'i', 't' }, '<M-g>', function() vim.cmd([[$tab term lazygit]]) end,
+    { desc = 'Open new terminal tab with lazygit' }
 )
 
 -- Bind Alt + n to switch tabs
