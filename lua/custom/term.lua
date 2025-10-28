@@ -11,7 +11,7 @@ vim.keymap.set(
 -- Bind Alt + n to switch tabs
 for i = 1, 9 do
     vim.keymap.set(
-        { 'n', 'i', 't' }, '<M-' .. i .. '>', function() pcall(vim.cmd, 'tabnext ' .. i) end,
+        { 'n', 'i', 't' }, '<M-' .. i .. '>', function() pcall(vim.cmd.tabnext, i) end,
         { desc = 'Open new tab with terminal' }
     )
 end
