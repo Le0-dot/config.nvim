@@ -20,6 +20,15 @@ return {
         { '<leader><leader>', builtin.buffers,     desc = '[ ] Find existing buffers' },
 
         {
+            '<leader>su',
+            function()
+                builtin.lsp_references {
+                    include_declaration = false,
+                }
+            end,
+            desc = '[S]earch [U]sage'
+        },
+        {
             '<leader>so',
             function()
                 builtin.live_grep {
