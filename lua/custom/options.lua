@@ -104,6 +104,12 @@ vim.lsp.enable(
     :totable()
 )
 
+vim.api.nvim_create_user_command('LspRestart', function()
+    local clients = vim.lsp.get_clients()
+    vim.lsp.stop_client(clients)
+    vim.cmd('edit')
+end, { desc = 'Restart all active LSP clients' })
+
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
