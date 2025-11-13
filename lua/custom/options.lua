@@ -97,6 +97,7 @@ vim.keymap.set(
 )
 
 require('custom.term')
+require('custom.session')
 
 vim.lsp.enable(
     vim.iter(vim.api.nvim_get_runtime_file('lsp/*.lua', true))
