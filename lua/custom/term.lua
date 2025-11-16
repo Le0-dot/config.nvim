@@ -12,7 +12,7 @@ vim.keymap.set(
 for i = 1, 9 do
     vim.keymap.set(
         { 'n', 'i', 't' }, '<M-' .. i .. '>', function() pcall(vim.cmd.tabnext, i) end,
-        { desc = 'Open new tab with terminal' }
+        { desc = 'Open ' .. i .. ' tab' }
     )
 end
 

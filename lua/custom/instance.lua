@@ -8,6 +8,8 @@ function HostEdit(sock_path, file)
         buffer = edit_bufnr,
         callback = function()
             vim.api.nvim_set_current_buf(term_bufnr)
+            vim.cmd.startinsert()
+
             vim.api.nvim_buf_delete(edit_bufnr, {})
 
             local sock = vim.fn.sockconnect("pipe", sock_path, { rpc = true })
