@@ -1,3 +1,4 @@
+require('custom.instance')
 require('custom.options')
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
