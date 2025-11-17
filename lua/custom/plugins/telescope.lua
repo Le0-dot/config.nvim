@@ -16,9 +16,7 @@ return {
         { '<leader>sg',       builtin.live_grep,   desc = '[S]earch by [G]rep' },
         { '<leader>sd',       builtin.diagnostics, desc = '[S]earch [D]iagnostics' },
         { '<leader>sr',       builtin.resume,      desc = '[S]earch [R]esume' },
-        { '<leader>s.',       builtin.oldfiles,    desc = '[S]earch Recent Files ("." for repeat)' },
         { '<leader><leader>', builtin.buffers,     desc = '[ ] Find existing buffers' },
-
         {
             '<leader>su',
             function()
@@ -29,21 +27,10 @@ return {
             desc = '[S]earch [U]sage'
         },
         {
-            '<leader>so',
-            function()
-                builtin.live_grep {
-                    grep_open_files = true,
-                    prompt_title = 'Live Grep in Open Files',
-                }
-            end,
-            desc = '[S]earch in [O]pen Files'
-        },
-
-        {
             '<leader>st',
             function()
                 builtin.live_grep {
-                    type_filter = vim.bo.filetype,
+                    type_filter = vim.fn.expand('%:e'),
                     prompt_title = 'Live Grep in ' .. vim.bo.filetype .. ' files'
                 }
             end,
@@ -51,7 +38,18 @@ return {
         },
     },
     config = function()
-        require('telescope').setup()
+        require('telescope').setup({
+            defaults = {
+                layout_config = {
+                    horizontal = {
+                        prompt_position = 'top',
+                        height = { padding = 0 },
+                        width = { padding = 0 },
+                    },
+                },
+                sorting_strategy = 'ascending',
+            },
+        })
         require('telescope').load_extension('ui-select')
     end
 }
