@@ -89,12 +89,6 @@ vim.keymap.set(
     function() vim.fn.setreg("+", vim.fn.expand("%:.:h")) end,
     { desc = 'Copy relative file path to system clipboard' }
 )
-vim.keymap.set(
-    'n',
-    '<leader>ed',
-    function() vim.cmd([[e %:h]]) end,
-    { desc = 'Edit directory of currently opened file' }
-)
 
 require('custom.term')
 require('custom.session')
