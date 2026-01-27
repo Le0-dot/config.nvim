@@ -134,6 +134,15 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
 })
 
 
+-- TODO move somewhere
+vim.filetype.add({
+    pattern = {
+        ['.*-openapi.ya?ml'] = 'yaml.openapi',
+        ['.*-openapi.json'] = 'json.openapi',
+    },
+})
+
+
 function Dump(o)
     if type(o) == 'table' then
         local s = '{ '
