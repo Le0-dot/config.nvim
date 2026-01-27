@@ -4,7 +4,17 @@ vim.keymap.set(
 )
 
 vim.keymap.set(
-    { 'n', 'i', 't' }, '<M-g>', function() vim.cmd([[$tab term lazygit]]) end,
+    { 'n', 'i', 't' }, '<M-g>', function()
+        vim.cmd([[$tab term lazygit]])
+
+        local buf = vim.api.nvim_get_current_buf()
+        vim.api.nvim_create_autocmd('BufLeave',
+            {
+                buffer = buf,
+                callback = function() vim.api.nvim_buf_delete(buf, { force = true }) end,
+            }
+        )
+    end,
     { desc = 'Open new terminal tab with lazygit' }
 )
 
