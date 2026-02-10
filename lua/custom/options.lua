@@ -91,6 +91,7 @@ vim.keymap.set(
     { desc = 'Copy relative file path to system clipboard' }
 )
 
+require('custom.tabpage')
 require('custom.term')
 require('custom.session')
 
