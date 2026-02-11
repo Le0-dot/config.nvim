@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd("User", {
             '# fmt: on',
         }
         buf_start_toggle(lines, args.data.enabled)
-        vim.cmd([[ :write ]])
+        vim.cmd.write()
     end
 })
 

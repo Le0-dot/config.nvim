@@ -91,42 +91,10 @@ vim.keymap.set(
     { desc = 'Copy relative file path to system clipboard' }
 )
 
-require('custom.tabpage')
-require('custom.term')
-require('custom.session')
-
-vim.lsp.enable(
-    vim.iter(vim.api.nvim_get_runtime_file('lsp/*.lua', true))
-    :map(function(f) return vim.fn.fnamemodify(f, ':t:r') end)
-    :totable()
-)
-
-vim.api.nvim_create_user_command('LspRestart', function()
-    local clients = vim.lsp.get_clients()
-    vim.lsp.stop_client(clients)
-    vim.cmd('edit')
-end, { desc = 'Restart all active LSP clients' })
-
-vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(args)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition)
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration)
-
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        if client and client:supports_method("textDocument/formatting") then
-            vim.api.nvim_create_autocmd('BufWritePre', {
-                callback = function()
-                    vim.lsp.buf.format({ async = false })
-                end,
-            })
-        end
-    end
-})
-
 vim.api.nvim_create_autocmd('TextYankPost', {
     desc = 'Hightlight selection on yank',
     callback = function()
-        vim.highlight.on_yank({ higroup = 'DiffText', timeout = 500 })
+        vim.hl.on_yank({ higroup = 'DiffText', timeout = 500 })
     end,
 })
 

@@ -1,5 +1,9 @@
 require('custom.instance')
+require('custom.session')
 require('custom.options')
+require('custom.lsp')
+require('custom.tabpage')
+require('custom.term')
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
