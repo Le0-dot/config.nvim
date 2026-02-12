@@ -65,6 +65,8 @@ vim.diagnostic.config({ virtual_lines = { current_line = true } })
 -- Border
 vim.o.winborder = 'rounded'
 
+-- Show diffs in vertical splits by default
+vim.o.diffopt = 'vertical'
 
 -- System clipboard interactions
 vim.keymap.set({ 'n', 'x' }, 'gy', '"+y', { desc = 'Copy to system clipboard' })
