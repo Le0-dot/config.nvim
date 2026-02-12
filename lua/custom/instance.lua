@@ -1,7 +1,6 @@
 function HostEdit(sock_path, flags, files)
     local initial_tabpage = vim.api.nvim_get_current_tabpage()
 
-
     vim.cmd.tabedit(files[1])
     vim.iter(files)
         :skip(1)
