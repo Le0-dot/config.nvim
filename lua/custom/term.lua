@@ -35,7 +35,10 @@ vim.api.nvim_create_autocmd({ 'TermOpen', 'BufEnter' }, {
 vim.api.nvim_create_autocmd('BufLeave', {
     desc = 'Restore statusline when leaving a terminal buffer',
     pattern = 'term://*',
-    callback = function() vim.o.laststatus = 2 end
+    callback = function()
+        vim.o.cmdheight = 1
+        vim.o.laststatus = 2
+    end
 })
 
 vim.api.nvim_create_autocmd('TermOpen', {
