@@ -9,7 +9,7 @@ return {
         default_file_explorer = true,
         buf_options = {
             buflisted = false,
-            bufhidden = "hide",
+            bufhidden = 'wipe',
         },
         delete_to_trash = true,
         view_options = {
