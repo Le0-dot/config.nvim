@@ -1,4 +1,10 @@
 function HostEdit(sock_path, flags, files)
+    local variables = vim.fn.getcompletion('t:', 'var')
+    local values = vim.iter(variables)
+        :map(function(variable) return variable:sub(#'t:' + 1) end)
+        :map(function(variable) return { variable = variable, value = vim.api.nvim_tabpage_get_var(0, variable) } end)
+        :totable()
+
     local buffer = vim.api.nvim_get_current_buf()
     vim.bo[buffer].bufhidden = 'hide'
 
@@ -12,18 +18,21 @@ function HostEdit(sock_path, flags, files)
         :map(vim.api.nvim_win_get_buf)
         :each(function(buf) vim.bo[buf].bufhidden = 'wipe' end)
 
-    vim.o.eventignore = 'TabLeave'
+    vim.o.eventignore = 'TabLeave' -- Suppress autoclosing of tabpages
 
     vim.api.nvim_create_autocmd("TabClosed", {
         pattern = tostring(vim.api.nvim_tabpage_get_number(0)),
         once = true,
         callback = function()
-            vim.cmd.tabnew()
-            vim.cmd.buffer(buffer)
-            vim.cmd.startinsert()
+            vim.o.eventignore = 'BufEnter' -- Suppress autocmds for empty scratch buffer
 
-            vim.bo[buffer].bufhidden = ''
+            vim.cmd.tabnew()
+            vim.iter(values):each(function(pair) vim.api.nvim_tabpage_set_var(0, pair.variable, pair.value) end)
+
             vim.o.eventignore = ''
+
+            vim.api.nvim_set_current_buf(buffer)
+            vim.bo[buffer].bufhidden = ''
 
             local sock = vim.fn.sockconnect("pipe", sock_path, { rpc = true })
             vim.fn.rpcnotify(sock, "nvim_command", "quit!")
