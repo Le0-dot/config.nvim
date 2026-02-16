@@ -135,15 +135,6 @@ end, { desc = 'Create new diff window with selected text', range = true })
 vim.keymap.set('x', 'gsd', ':SelectionDiff<CR>', { desc = 'Call SelectionDiff' })
 
 
--- TODO move somewhere
-vim.filetype.add({
-    pattern = {
-        ['.*-openapi.ya?ml'] = 'yaml.openapi',
-        ['.*-openapi.json'] = 'json.openapi',
-    },
-})
-
-
 function Dump(o)
     if type(o) == 'table' then
         local s = '{ '

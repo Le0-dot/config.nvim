@@ -1,6 +1,7 @@
 require('custom.instance')
 require('custom.session')
 require('custom.options')
+require('custom.filetype')
 require('custom.lsp')
 require('custom.tabpage')
 require('custom.term')
