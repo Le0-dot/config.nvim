@@ -5,6 +5,15 @@ for i = 1, 9 do
     )
 end
 
+
+vim.api.nvim_create_autocmd('ModeChanged', {
+    desc = 'Save the mode when changed',
+    pattern = { 'n:i', 'i:n', 'nt:t', 't:nt' },
+    callback = function()
+        vim.t.mode = vim.v.event.new_mode
+    end,
+})
+
 vim.api.nvim_create_autocmd('TabEnter', {
     desc = 'Restore the mode when entering a tab',
     callback = function()
@@ -19,12 +28,5 @@ vim.api.nvim_create_autocmd('TabEnter', {
             command = mode_table[vim.t.mode] or '',
             once = true,
         })
-    end,
-})
-
-vim.api.nvim_create_autocmd('TabLeave', {
-    desc = 'Save the mode when leaving a tab',
-    callback = function()
-        vim.t.mode = vim.api.nvim_get_mode().mode
     end,
 })
