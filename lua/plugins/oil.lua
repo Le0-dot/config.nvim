@@ -3,7 +3,7 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false,
     keys = {
-        { "<leader>ed", function() vim.cmd.edit("%:h") end, desc = "[E]dit [d]irectory" },
+        { "<leader>ed", vim.cmd.Oil, desc = "[E]dit [d]irectory" },
     },
     opts = {
         default_file_explorer = true,
