@@ -4,12 +4,20 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = args.buf })
 
         local client = vim.lsp.get_client_by_id(args.data.client_id)
-        if client and client:supports_method("textDocument/formatting") then
-            vim.api.nvim_create_autocmd('BufWritePre', {
-                callback = function() vim.lsp.buf.format({ async = false }) end,
-                buffer = args.buf,
-            })
-        end
+
+        vim.api.nvim_create_autocmd('BufWritePre', {
+            callback = function()
+                if client and client:supports_method("textDocument/formatting") then
+                    vim.lsp.buf.format({ async = false })
+                end
+
+                vim.lsp.buf.code_action({ context = { diagnostics = {}, only = { "source.organizeImports" }, }, apply = true })
+                vim.lsp.buf.code_action({ context = { diagnostics = {}, only = { "source.fixAll" }, }, apply = true })
+
+                vim.wait(30)
+            end,
+            buffer = args.buf,
+        })
     end
 })
 
