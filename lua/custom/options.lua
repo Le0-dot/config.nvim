@@ -56,47 +56,15 @@ vim.o.inccommand = 'split'
 vim.o.shortmess = 'oOstTWACFS'
 vim.o.autoread = true
 
+vim.o.clipboard = 'unnamedplus'
 
 vim.o.winborder = 'rounded'
 
 vim.o.diffopt = 'vertical'
 
--- System clipboard interactions
-vim.keymap.set({ 'n', 'x' }, 'gy', '"+y', { desc = 'Copy to system clipboard' })
-vim.keymap.set('n', 'gp', '"+p', { desc = 'Paste from system clipboard' })
-vim.keymap.set('n', 'gP', '"+P', { desc = 'Paste from system clipboard' })
-vim.keymap.set('v', 'gp', '"+P', { desc = 'Paste from system clipboard in visual mode' })
-
-
--- Some custom general keymaps
 vim.keymap.set('n', '<C-q>', '<C-w><C-q>', { desc = 'Close focused window' })
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Stop highlighting the search results' })
-
-vim.keymap.set(
-    'n',
-    'gyf',
-    function() vim.fn.setreg("+", vim.fn.expand("%:.")) end,
-    { desc = 'Copy relative file path to system clipboard' }
-)
-vim.keymap.set(
-    'n',
-    'gyd',
-    function() vim.fn.setreg("+", vim.fn.expand("%:.:h")) end,
-    { desc = 'Copy relative file path to system clipboard' }
-)
-
-vim.api.nvim_create_autocmd('TextYankPost', {
-    desc = 'Hightlight selection on yank',
-    callback = function()
-        vim.hl.on_yank({ higroup = 'DiffText', timeout = 500 })
-    end,
-})
---
--- vim.api.nvim_create_autocmd({ "CursorMoved" }, {
---     desc = 'Center buffer after cursor is moved',
---     callback = function() vim.cmd("normal! zz") end,
--- })
 
 
 vim.api.nvim_create_user_command('SelectionDiff', function()

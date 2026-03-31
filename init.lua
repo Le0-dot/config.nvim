@@ -6,6 +6,7 @@ require('custom.lsp')
 require('custom.tabpage')
 require('custom.term')
 require('custom.diagnostic')
+require('custom.yank')
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
