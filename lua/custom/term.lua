@@ -1,18 +1,24 @@
 vim.keymap.set({ 'n', 'i', 't' }, '<M-t>', function() vim.cmd([[$tab term]]) end, { desc = 'Open new tab with terminal' })
-vim.keymap.set({ 'n', 'i', 't' }, '<M-o>', function() vim.cmd([[$tab term opencode]]) end,
-    { desc = 'Open new tab with opencode' })
-vim.keymap.set({ 'n', 'i', 't' }, '<M-g>', function() vim.cmd([[$tab term lazygit]]) end,
-    { desc = 'Open new tab with lazygit' })
+vim.keymap.set(
+    { 'n', 'i', 't' },
+    '<M-o>',
+    function() vim.cmd([[$tab term opencode]]) end,
+    { desc = 'Open new tab with opencode' }
+)
+vim.keymap.set(
+    { 'n', 'i', 't' },
+    '<M-g>',
+    function()
+        vim.cmd([[$tab term lazygit]])
 
-vim.api.nvim_create_autocmd('TabLeave', {
-    pattern = 'term://*lazygit',
-    callback = function()
+        vim.bo.bufhidden = 'wipe'
         vim.api.nvim_create_autocmd('TabEnter', {
             once = true,
             callback = function() pcall(vim.cmd.tabclose, '#') end,
         })
     end,
-})
+    { desc = 'Open new tab with lazygit' }
+)
 
 vim.api.nvim_create_autocmd('TermOpen', {
     desc = 'Enable Esc and Ctrl + [ to exit terminal mode',
