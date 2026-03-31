@@ -4,68 +4,61 @@ vim.g.maplocalleader = ' '
 
 
 -- Line number
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.signcolumn = 'yes'
+vim.o.number = true
+vim.o.relativenumber = true
+vim.o.signcolumn = 'yes'
 
 
 -- Search
-vim.opt.ignorecase = true
-vim.opt.infercase = true
-vim.opt.smartcase = true
-vim.opt.incsearch = true
-vim.opt.hlsearch = true
+vim.o.ignorecase = true
+vim.o.infercase = true
+vim.o.smartcase = true
+vim.o.incsearch = true
+vim.o.hlsearch = true
 
 
 -- Indenting
-vim.opt.expandtab = true -- Tabs with spaces
-vim.opt.tabstop = 4      -- Width of tab character
-vim.opt.shiftwidth = 0   -- Width of tabs for > and < (0 to use tabstop value)
-vim.opt.softtabstop = -1 -- Number of spaces to insert for <TAB> and delete for <BS> (negative to use shiftwidth value)
-vim.opt.smarttab = true
+vim.o.expandtab = true
+vim.o.tabstop = 4
+vim.o.shiftwidth = 0
+vim.o.softtabstop = -1
+vim.o.smarttab = true
 
-vim.opt.smartindent = true
-vim.opt.autoindent = true
-
+vim.o.smartindent = true
+vim.o.autoindent = true
 
 -- Timing
-vim.opt.updatetime = 250 -- Timeout for plugin start
-vim.opt.timeoutlen = 500 -- Mapping timeout
+vim.o.updatetime = 250
+vim.o.timeoutlen = 500
 
 
 -- Splits
-vim.opt.splitright = true
-vim.opt.splitbelow = true
+vim.o.splitright = true
+vim.o.splitbelow = true
 
 
 -- Cursor
-vim.opt.cursorline = true -- Highlight current line
-vim.opt.scrolloff = 10
+vim.o.cursorline = true
+vim.o.scrolloff = 999
 
 
 -- Filesystem
-vim.opt.undofile = true
-vim.opt.backup = false
-vim.opt.writebackup = false
+vim.o.undofile = true
+vim.o.backup = false
+vim.o.writebackup = false
 vim.o.swapfile = false
 
 
 -- Misc
-vim.opt.showmode = false -- Show Insert, Visial or Replace mode
-vim.opt.showmatch = true
-vim.opt.formatoptions:remove('o')
-vim.opt.inccommand = 'split'  -- Show preview in a split
-vim.opt.shortmess:append('S') -- Don't show search count in right corner
-vim.opt.autoread = true       -- Auto reload files changed outside of Neovim
+vim.o.showmode = false
+vim.o.showmatch = true
+vim.o.inccommand = 'split'
+vim.o.shortmess = 'oOstTWACFS'
+vim.o.autoread = true
 
 
--- Diagnostics
-vim.diagnostic.config({ virtual_lines = { current_line = true } })
-
--- Border
 vim.o.winborder = 'rounded'
 
--- Show diffs in vertical splits by default
 vim.o.diffopt = 'vertical'
 
 -- System clipboard interactions
@@ -99,11 +92,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
         vim.hl.on_yank({ higroup = 'DiffText', timeout = 500 })
     end,
 })
-
-vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-    desc = 'Center buffer after cursor is moved',
-    callback = function() vim.cmd("normal! zz") end,
-})
+--
+-- vim.api.nvim_create_autocmd({ "CursorMoved" }, {
+--     desc = 'Center buffer after cursor is moved',
+--     callback = function() vim.cmd("normal! zz") end,
+-- })
 
 
 vim.api.nvim_create_user_command('SelectionDiff', function()
