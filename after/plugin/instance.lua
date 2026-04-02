@@ -46,7 +46,7 @@ if not sock_path then
     return
 end
 
-local files = vim.iter(vim.fn.argv())
+local files = vim.iter(vim.v.argf)
     :map(vim.fs.abspath)
     :totable()
 local flags = vim.iter(vim.v.argv)
